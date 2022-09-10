@@ -13,8 +13,6 @@ marking the path with `@`.
 ## Setup
 `$ git clone git@github.com:altWulff/MazePathfinder.git && cd MazePathfinder`
 
-`$ virtualenv venv && source venv/bin/activate`
-
 ## Usage
 `$ python src/main.py --input INPUT_FILE --output OUTPUT_FILE`
 
