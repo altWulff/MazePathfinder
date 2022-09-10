@@ -1,8 +1,12 @@
  # Maze pathfinder
 The program determines the shortest path in the maze from a file, in the format:
+
 `0` - impassable area (wall),
-` `(space) - passable area,
+
+` ` (space) - passable area,
+
 `I` - entrance to the maze, `E` - exit from the maze.
+
 It follows the path from the starting point `I` to `E` and outputs the finished path to the test file,
 marking the path with `@`.
 
