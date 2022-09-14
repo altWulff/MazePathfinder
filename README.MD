@@ -15,6 +15,10 @@ marking the path with `@`.
 
 ## Usage
 `$ python src/main.py --input INPUT_FILE --output OUTPUT_FILE`
+### Or
+`$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
 
 ### Example usage
 `$ python src/main.py --input "./Maze.txt" --output "./Maze_w_path.txt"`
+### Or
+`$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
