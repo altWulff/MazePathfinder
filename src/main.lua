@@ -204,6 +204,17 @@ local function main()
     maze_file = open_maze(input_file)
     maze, start, finish = format_maze_file(maze_file)
     maze_matrix = create_maze_matrix(maze, start)
+
+    new_matrix = make_step(1, maze, maze_matrix)
+    for i=1, #new_matrix do
+        maze_pr = ""
+        for j=1, #new_matrix[i] do
+            _line = tostring(new_matrix[i][j])
+            maze_pr = maze_pr.._line
+        end
+        print(maze_pr)
+    end
+
     maze_matrix = find_finish(maze, maze_matrix, finish)
     path = find_path(maze_matrix, finish)
     maze = write_path(path, start, finish, maze)
