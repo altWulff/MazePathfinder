@@ -68,65 +68,59 @@ local function create_maze_matrix(maze, start)
 end
 
 
-local function make_step(k, maze, maze_matrix)
+function make_step(k)
     -- Steps in maze
     -- :param k: step number
-    -- :param maze: maze array
-    -- :param maze_matrix: maze matrix
 
     for i=1, #maze_matrix do
         for j=1, #maze_matrix[i] do
             if maze_matrix[i][j] == k then
-                if ((i > 1) and (maze_matrix[(i - 1)][j] == 0)) then
+                if i > 1 and (maze_matrix[i - 1][j]) == 0 and tonumber(maze[i - 1][j]) == 0 then
                     maze_matrix[(i - 1)][j] = (k + 1)
                 end
-                if ((j > 1) and (maze_matrix[i][(j - 1)] == 0)) then
+                if j > 1 and (maze_matrix[i][j - 1]) == 0 and tonumber(maze[i][j - 1]) == 0 then
                     maze_matrix[i][(j - 1)] = (k + 1)
                 end
-                if ((i < #maze_matrix) and (maze_matrix[(i + 1)][j] == 0)) then
+                if (i < #maze_matrix and (maze_matrix[i + 1][j] == 0) and tonumber(maze[i + 1][j]) == 0) then
                     maze_matrix[(i + 1)][j] = (k + 1)
                 end
-                if ((j < (#maze_matrix[i] - 1)) and (maze_matrix[i][(j + 1)] == 0)) then
+
+                if (j < (#maze_matrix[i]) - 1
+                    and maze_matrix[i][j + 1] == 0
+                    and tonumber(maze[i][j + 1] ) == 0) then
                     maze_matrix[i][(j + 1)] = (k + 1)
                 end
             end
         end
     end
-    return maze_matrix
 end
 
 
-local function find_finish(maze, maze_matrix, finish)
+function find_finish()
     -- Find finish with maze matrix,
     -- with loop steps
-    -- :param maze:
-    -- :param maze_matrix: matrix in and out
-    -- :param finish
 
     k = 0
-    while maze_matrix[finish[1]][finish[2]] == 0 do
+    while maze_matrix[finish[1]][finish[2]-1] == 0 do
         k = (k + 1)
-        new_matrix = make_step(k, maze, maze_matrix)
+        make_step(k)
     end
-    return new_matrix
 end
 
 
-local function find_path(maze_matrix, finish)
+function find_path()
     -- Construct path coordinate
-    -- :param maze_matrix:
-    -- :param end: end coordinate, starts from end
     -- :return: path array of tuples
 
     local i, j = finish[1], finish[2]
-    local k = maze_matrix[i][j]
-    local the_path = {{i, j}}
-    while (k > 1) do
-        if ((i > 1) and (maze_matrix[(i - 1)][j] == (k - 1))) then
+    local k = maze_matrix[i][j - 1] + 1
+    local the_path = {finish}
+    while k > 0 do
+        if ((i > 1) and (maze_matrix[(i - 1)][j] == k - 1 )) then
             i, j = (i - 1), j
             table.insert(the_path, {i, j})
             k = (k - 1)
-        elseif ((j > 0) and (maze_matrix[i][(j - 1)] == (k - 1))) then
+        elseif ((j > 1) and (maze_matrix[i][(j - 1)] == (k - 1))) then
             i, j = i, (j - 1)
             table.insert(the_path, {i, j})
             k = (k - 1)
@@ -138,13 +132,16 @@ local function find_path(maze_matrix, finish)
             i, j = i, (j + 1)
             table.insert(the_path, {i, j})
             k = (k - 1)
+        else
+            break
         end
     end
+    table.remove(the_path, #the_path)
     return the_path
 end
 
 
-local function write_path(the_path, start, finish, maze)
+function write_path(the_path, start, finish, maze)
     -- Write path on maze with '@'
     -- :param the_path: Path array
     -- :param start: Start coordinate
@@ -156,7 +153,7 @@ local function write_path(the_path, start, finish, maze)
         local ia = the_path[i][1]
         local ib = the_path[i][2]
         if ia == finish[1] and ib == finish[2] then
-            maze[ia][ib] = "E"
+             maze[ia][ib] = "E"
         elseif ia == start[1] and ib == start[2] then
             maze[ia][ib] = "|"
         else
@@ -205,19 +202,20 @@ local function main()
     maze, start, finish = format_maze_file(maze_file)
     maze_matrix = create_maze_matrix(maze, start)
 
-    new_matrix = make_step(1, maze, maze_matrix)
-    for i=1, #new_matrix do
+    find_finish()
+    path = find_path()
+    maze = write_path(path, start, finish, maze)
+
+    for i=1, #maze do
         maze_pr = ""
-        for j=1, #new_matrix[i] do
-            _line = tostring(new_matrix[i][j])
-            maze_pr = maze_pr.._line
+        for j=1, #maze[i] do
+            _line = tostring(maze[i][j])
+            _line = string.gsub(_line, "0", " ")
+            _line = string.gsub(_line, "1", "0")
+            maze_pr = maze_pr.."".._line..""
         end
         print(maze_pr)
     end
-
-    maze_matrix = find_finish(maze, maze_matrix, finish)
-    path = find_path(maze_matrix, finish)
-    maze = write_path(path, start, finish, maze)
     write_maze_to_file(output_file, maze)
 end
 
