@@ -4,7 +4,7 @@ catch txt file and return file
 with maze path
 ]]--
 
-local argparse = require "src/argparse"
+local argparse = require "lib/argparse"
 
 
 local function open_maze(file_path)
@@ -176,8 +176,9 @@ local function write_maze_to_file(file_path, maze)
     for i=1, #maze do
         for j=1, #maze[i] do
             local _line = tostring(maze[i][j])
-            local _line = string.gsub(_line, "0", " ")
-            local _line = string.gsub(_line, "1", "0")
+            local _line = _line.."\n"
+--             local _line = string.gsub(_line, "0", " ")
+--             local _line = string.gsub(_line, "1", "0")
             f:write(_line)
         end
     end

@@ -1,4 +1,4 @@
- # Maze pathfinder
+ # Maze pathfinder write on Lua
 The program determines the shortest path in the maze from a file, in the format:
 
 `0` - impassable area (wall),
@@ -14,11 +14,7 @@ marking the path with `@`.
 `$ git clone git@github.com:altWulff/MazePathfinder.git && cd MazePathfinder`
 
 ## Usage
-`$ python src/main.py --input INPUT_FILE --output OUTPUT_FILE`
-### Or
 `$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
 
 ### Example usage
-`$ python src/main.py --input "./Maze.txt" --output "./Maze_w_path.txt"`
-### Or
 `$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
