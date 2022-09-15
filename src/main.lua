@@ -177,8 +177,8 @@ local function write_maze_to_file(file_path, maze)
         for j=1, #maze[i] do
             local _line = tostring(maze[i][j])
             local _line = _line.."\n"
---             local _line = string.gsub(_line, "0", " ")
---             local _line = string.gsub(_line, "1", "0")
+            local _line = string.gsub(_line, "0", " ")
+            local _line = string.gsub(_line, "1", "0")
             f:write(_line)
         end
     end
