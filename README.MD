@@ -14,7 +14,7 @@ marking the path with `@`.
 `$ git clone git@github.com:altWulff/MazePathfinder.git && cd MazePathfinder`
 
 ## Usage
-`$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
+`$ lua src/main.lua --input INPUT_FILE --output OUTPUT_FILE
 
 ### Example usage
 `$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
