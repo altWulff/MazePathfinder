@@ -69,7 +69,7 @@ local function create_maze_matrix(maze, start)
 end
 
 
-function make_step(k)
+local function make_step(k)
     -- Steps in maze
     -- :param k: step number
 
@@ -97,7 +97,7 @@ function make_step(k)
 end
 
 
-function find_finish()
+local function find_finish()
     -- Find finish with maze matrix,
     -- with loop steps
 
@@ -109,7 +109,7 @@ function find_finish()
 end
 
 
-function find_path()
+local function find_path()
     -- Construct path coordinate
     -- :return: path array of tuples
 
@@ -142,7 +142,7 @@ function find_path()
 end
 
 
-function write_path(the_path, start, finish, maze)
+local function write_path(the_path, start, finish, maze)
     -- Write path on maze with '@'
     -- :param the_path: Path array
     -- :param start: Start coordinate
@@ -164,8 +164,7 @@ function write_path(the_path, start, finish, maze)
     return maze
 end
 
-
-function write_maze_to_file(file_path, maze)
+local function write_maze_to_file(file_path, maze)
     -- Write maze to file with
     -- replace 0 to space,
     -- replace 1 to 0
@@ -202,24 +201,30 @@ local function main()
     -- Main call
 
     input_file, output_file = parse_args()
+    print("Dungeon file along the way: "..input_file)
+    
     maze_file = open_maze(input_file)
     maze, start, finish = format_maze_file(maze_file)
     maze_matrix = create_maze_matrix(maze, start)
-
     find_finish()
+    print("Create matrix ...")
     path = find_path()
+    print("Write parh from matrix to maze ...")
     maze = write_path(path, start, finish, maze)
-
+    -- print maze with path
+    print("----------------------")
     for i=1, #maze do
         maze_pr = ""
         for j=1, #maze[i] do
             _line = tostring(maze[i][j])
             _line = string.gsub(_line, "0", " ")
             _line = string.gsub(_line, "1", "0")
-            maze_pr = maze_pr.."".._line..""
+            maze_pr = maze_pr.._line
         end
         print(maze_pr)
     end
+    print("----------------------")
+    print("Finished dungeon write to: "..output_file)
     write_maze_to_file(output_file, maze)
 end
 
