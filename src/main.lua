@@ -33,7 +33,8 @@ local function format_maze_file(file)
         if string.find(_line, "I") then
             start = {row_num, string.find(_line, "I")}
             _line = string.gsub(_line, "I", " ")
-        elseif string.find(_line, "E") then
+        end
+        if string.find(_line, "E") then
             finish = {row_num, string.find(_line, "E")}
             _line = string.gsub(_line, "E", " ")
         end
