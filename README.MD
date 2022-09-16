@@ -11,10 +11,10 @@ It follows the path from the starting point `I` to `E` and outputs the finished 
 marking the path with `@`.
 
 ## Setup
-`$ git clone git@github.com:altWulff/MazePathfinder.git && cd MazePathfinder`
+`$ git clone --branch write_on_lua git@github.com:altWulff/MazePathfinder.git && cd MazePathfinder`
 
 ## Usage
-`$ lua src/main.lua --input INPUT_FILE --output OUTPUT_FILE
+`$ lua src/main.lua --input INPUT_FILE --output OUTPUT_FILE`
 
 ### Example usage
 `$ lua src/main.lua --input "./Maze.txt" --output "./Maze_w_path.txt"`
