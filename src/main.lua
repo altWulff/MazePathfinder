@@ -164,22 +164,25 @@ function write_path(the_path, start, finish, maze)
 end
 
 
-local function write_maze_to_file(file_path, maze)
+function write_maze_to_file(file_path, maze)
     -- Write maze to file with
     -- replace 0 to space,
     -- replace 1 to 0
 
-    local f = io.open(file_path, "w")
+    local file = io.open(file_path, "w")
     for i=1, #maze do
+        line = ""
         for j=1, #maze[i] do
             local _line = tostring(maze[i][j])
-            local _line = _line.."\n"
+
             local _line = string.gsub(_line, "0", " ")
             local _line = string.gsub(_line, "1", "0")
-            f:write(_line)
+            line = line.._line
         end
+        write_line = line.."\n"
+        file:write(write_line)
     end
-    f:close()
+    file:close()
 end
 
 local function parse_args()
