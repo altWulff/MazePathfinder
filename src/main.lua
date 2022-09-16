@@ -201,6 +201,14 @@ local function main()
     -- Main call
 
     input_file, output_file = parse_args()
+
+    if not input_file then
+        input_file = "./Maze.txt"
+    end
+    if not output_file then
+        output_file = "./Maze_w_path.txt"
+    end
+
     print("Dungeon file along the way: "..input_file)
     
     maze_file = open_maze(input_file)
