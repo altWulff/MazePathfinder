@@ -102,9 +102,12 @@ local function find_finish()
     -- with loop steps
 
     k = 0
-    while maze_matrix[finish[1]][finish[2]-1] == 0 do
+    while maze_matrix[finish[1]][finish[2]] == 0 do
         k = (k + 1)
         make_step(k)
+        if k > 400 then
+            break
+        end
     end
 end
 
@@ -113,8 +116,14 @@ local function find_path()
     -- Construct path coordinate
     -- :return: path array of tuples
 
-    local i, j = finish[1], finish[2]
-    local k = maze_matrix[i][j - 1] + 1
+    local i, j = tonumber(finish[1]), tonumber(finish[2])
+
+    if maze_matrix[i][j] == 0 then
+        k = maze_matrix[i][j - 1] + 1
+    else
+        k = maze_matrix[i][j]
+    end
+    print (k)
     local the_path = {finish}
     while k > 0 do
         if ((i > 1) and (maze_matrix[(i - 1)][j] == k - 1 )) then
@@ -216,6 +225,17 @@ local function main()
     maze_matrix = create_maze_matrix(maze, start)
     find_finish()
     print("Create matrix ...")
+    -- print matrix
+    print("----------------------")
+    for i=1, #maze_matrix do
+        maze_pr = ""
+        for j=1, #maze_matrix[i] do
+            _line = tostring(maze_matrix[i][j])
+            maze_pr = maze_pr.._line
+        end
+        print(maze_pr)
+    end
+    print("----------------------")
     path = find_path()
     print("Write parh from matrix to maze ...")
     maze = write_path(path, start, finish, maze)
