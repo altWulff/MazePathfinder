@@ -165,7 +165,7 @@ local function write_path(the_path, start, finish, maze)
         if ia == finish[1] and ib == finish[2] then
              maze[ia][ib] = "E"
         elseif ia == start[1] and ib == start[2] then
-            maze[ia][ib] = "|"
+            maze[ia][ib] = "I"
         else
             maze[ia][ib] = "@"
         end
